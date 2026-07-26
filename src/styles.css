@@ -158,3 +158,8 @@
 .footer-links { display: flex; gap: 1.25rem; margin-left: auto; }
 .footer-links button { background: none; border: none; color: rgba(255,255,255,0.75); cursor: pointer; font-size: 0.8rem; font-weight: 500; }
 .footer-copy { font-size: 0.72rem; color: rgba(255,255,255,0.45); }
+
+.brand-logo {
+  height: 44px;
+  width: auto;
+}

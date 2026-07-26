@@ -12,8 +12,7 @@ export default function Nav({ page, setPage, menuOpen, setMenuOpen }) {
     <header className="nav">
       <div className="nav-inner">
         <button className="brand" onClick={() => setPage("home")}>
-          <span className="brand-mark">SD</span>
-          <span className="brand-name script">Shelly's Signature Designs</span>
+           <img src="/images/logo.png" alt="Shelly's Signature Designs" className="brand-logo" />
         </button>
         <nav className="nav-links">
           {links.map((l) => (

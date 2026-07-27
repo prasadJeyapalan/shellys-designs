@@ -249,3 +249,21 @@
 .cart-checkout { width: 100%; justify-content: center; }
 .cart-checkout:disabled { opacity: 0.55; cursor: not-allowed; }
 .cart-error { color: #b3435f; font-size: 0.75rem; margin: 0 0 0.75rem; text-align: center; }
+
+.product-disabled { opacity: 0.55; cursor: not-allowed; }
+.product-disabled:hover { transform: none !important; box-shadow: none !important; }
+.product-disabled .product-swatch { filter: grayscale(60%); }
+.coming-soon-badge {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background: rgba(32,26,29,0.85);
+  color: white;
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.3rem 0.6rem;
+  border-radius: 12px;
+}
+.product-swatch { position: relative; }

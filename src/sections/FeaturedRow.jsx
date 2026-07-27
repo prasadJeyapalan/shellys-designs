@@ -5,7 +5,7 @@ import ProductCard from "../components/ProductCard.jsx";
 import { HeartBullet } from "../components/Decor.jsx";
 
 export default function FeaturedRow({ setPage, onSelect }) {
-  const featured = PRODUCTS.filter((p) => ["tee-heart", "cap-classic", "tumbler-20"].includes(p.id));
+  const featured = PRODUCTS.filter((p) => p.available);
   return (
     <section className="section">
       <div className="section-head">

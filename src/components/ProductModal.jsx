@@ -18,11 +18,15 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
           <X size={18} />
         </button>
         <div
-          className="modal-swatch"
-          style={{ background: `linear-gradient(150deg, ${product.tone}, #FDEAF0)` }}
-        >
-          <span className="swatch-ring large" />
-        </div>
+  className="modal-swatch"
+  style={{
+    background: product.image
+      ? `url(${product.image}) center/cover no-repeat`
+      : `linear-gradient(150deg, ${product.tone}, #FDEAF0)`,
+  }}
+>
+  {!product.image && <span className="swatch-ring large" />}
+</div>
         <div className="modal-info">
           <span className="eyebrow">{product.cat[0].toUpperCase() + product.cat.slice(1)}</span>
           <h3 className="font-display">{product.name}</h3>

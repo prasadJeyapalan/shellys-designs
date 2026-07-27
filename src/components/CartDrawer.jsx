@@ -40,13 +40,40 @@ export default function CartDrawer({ cart, onClose, onChangeQty, onRemove }) {
     }
   };
 
-  const handleCashReserve = () => {
-    const orderList = items
-      .map((i) => `${i.qty} x ${i.name} — $${i.price * i.qty}`)
-      .join("%0D%0A");
-    const subject = encodeURIComponent("Cash Pickup Order Request");
-    const body = `Hi! I'd like to reserve the following for pickup, paying cash:%0D%0A%0D%0A${orderList}%0D%0A%0D%0ASubtotal: $${total}%0D%0A%0D%0AMy name:%0D%0AMy phone:%0D%0APreferred pickup time:`;
-    window.location.href = `mailto:ehopeinjesus@yahoo.com?subject=${subject}&body=${body}`;
+  const [showCashForm, setShowCashForm] = useState(false);
+  const [cashName, setCashName] = useState("");
+  const [cashPhone, setCashPhone] = useState("");
+  const [cashTime, setCashTime] = useState("");
+  const [cashSent, setCashSent] = useState(false);
+  const [cashLoading, setCashLoading] = useState(false);
+
+  const handleCashSubmit = async (e) => {
+    e.preventDefault();
+    setCashLoading(true);
+    try {
+      const res = await fetch("/api/send-cash-order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          items: items.map((i) => ({ name: i.name, price: i.price, qty: i.qty })),
+          total,
+          name: cashName,
+          phone: cashPhone,
+          pickupTime: cashTime,
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setCashSent(true);
+      } else {
+        throw new Error(data.error || "Failed to send");
+      }
+    } catch (err) {
+      setError("Couldn't send your request. Please try again.");
+      console.error(err);
+    } finally {
+      setCashLoading(false);
+    }
   };
 
   return (
@@ -111,9 +138,46 @@ export default function CartDrawer({ cart, onClose, onChangeQty, onRemove }) {
               >
                 {loading ? "Redirecting…" : "Pay by card"}
               </button>
-              <button className="btn-ghost cart-cash" onClick={handleCashReserve}>
-                Reserve & pay cash at pickup
-              </button>
+              {!showCashForm && !cashSent && (
+                <button className="btn-ghost cart-cash" onClick={() => setShowCashForm(true)}>
+                  Reserve & pay cash at pickup
+                </button>
+              )}
+
+              {showCashForm && !cashSent && (
+                <form className="cash-form" onSubmit={handleCashSubmit}>
+                  <input
+                    type="text"
+                    placeholder="Your name"
+                    required
+                    value={cashName}
+                    onChange={(e) => setCashName(e.target.value)}
+                  />
+                  <input
+                    type="tel"
+                    placeholder="Phone number"
+                    required
+                    value={cashPhone}
+                    onChange={(e) => setCashPhone(e.target.value)}
+                  />
+                  <input
+                    type="text"
+                    placeholder="Preferred pickup time"
+                    required
+                    value={cashTime}
+                    onChange={(e) => setCashTime(e.target.value)}
+                  />
+                  <button className="btn-ghost cart-cash" type="submit" disabled={cashLoading}>
+                    {cashLoading ? "Sending…" : "Confirm reservation"}
+                  </button>
+                </form>
+              )}
+
+              {cashSent && (
+                <p className="cash-confirmation">
+                  Reserved! We'll text or call you to confirm pickup.
+                </p>
+              )}
             </div>
           </>
         )}

@@ -30,7 +30,7 @@
 
 /* NAV */
 .nav { position: sticky; top: 0; z-index: 40; background: var(--cream); border-bottom: 1px solid rgba(32,26,29,0.08); }
-.nav-inner { max-width: 1180px; margin: 0 auto; padding: 1rem 1.5rem; display: flex; align-items: center; gap: 2rem; }
+.nav-inner { max-width: 1180px; margin: 0 auto; padding: 0.75rem 1.5rem; display: flex; align-items: center; justify-content: space-between; position: relative; }
 .brand { display: flex; align-items: center; gap: 0.65rem; background: none; border: none; cursor: pointer; }
 .brand-mark {
   width: 34px; height: 34px; border-radius: 50%;
@@ -40,7 +40,7 @@
   font-family: 'Playfair Display', serif; font-weight: 600; font-size: 0.85rem;
 }
 .brand-name { font-size: 1.3rem; color: var(--ink); }
-.nav-links { display: flex; gap: 1.75rem; margin-left: auto; }
+.nav-links { display: flex; gap: 1.75rem; }
 .nav-link { background: none; border: none; cursor: pointer; font-size: 0.85rem; font-weight: 500; color: rgba(32,26,29,0.55); padding: 0.25rem 0; border-bottom: 2px solid transparent; }
 .nav-link.active, .nav-link:hover { color: var(--ink); border-bottom-color: var(--blush); }
 .nav-icon-btn { background: none; border: none; cursor: pointer; color: var(--ink); display: none; }
@@ -160,6 +160,17 @@
 .footer-copy { font-size: 0.72rem; color: rgba(255,255,255,0.45); }
 
 .brand-logo {
-  height: 68px;
+  height: 84px;
   width: auto;
 }
+.brand {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 2;
+}
+.nav-actions { display: flex; align-items: center; gap: 1rem; }

@@ -40,6 +40,15 @@ export default function CartDrawer({ cart, onClose, onChangeQty, onRemove }) {
     }
   };
 
+  const handleCashReserve = () => {
+    const orderList = items
+      .map((i) => `${i.qty} x ${i.name} — $${i.price * i.qty}`)
+      .join("%0D%0A");
+    const subject = encodeURIComponent("Cash Pickup Order Request");
+    const body = `Hi! I'd like to reserve the following for pickup, paying cash:%0D%0A%0D%0A${orderList}%0D%0A%0D%0ASubtotal: $${total}%0D%0A%0D%0AMy name:%0D%0AMy phone:%0D%0APreferred pickup time:`;
+    window.location.href = `mailto:ehopeinjesus@yahoo.com?subject=${subject}&body=${body}`;
+  };
+
   return (
     <div className="cart-backdrop" onClick={onClose}>
       <div className="cart-drawer" onClick={(e) => e.stopPropagation()}>
@@ -100,7 +109,10 @@ export default function CartDrawer({ cart, onClose, onChangeQty, onRemove }) {
                 onClick={handleCheckout}
                 disabled={loading}
               >
-                {loading ? "Redirecting…" : "Checkout"}
+                {loading ? "Redirecting…" : "Pay by card"}
+              </button>
+              <button className="btn-ghost cart-cash" onClick={handleCashReserve}>
+                Reserve & pay cash at pickup
               </button>
             </div>
           </>

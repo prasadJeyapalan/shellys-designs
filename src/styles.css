@@ -249,6 +249,7 @@
 .cart-checkout { width: 100%; justify-content: center; }
 .cart-checkout:disabled { opacity: 0.55; cursor: not-allowed; }
 .cart-error { color: #b3435f; font-size: 0.75rem; margin: 0 0 0.75rem; text-align: center; }
+.cart-cash { width: 100%; justify-content: center; margin-top: 0.6rem; font-size: 0.82rem; }
 
 .product-disabled { opacity: 0.55; cursor: not-allowed; }
 .product-disabled:hover { transform: none !important; box-shadow: none !important; }

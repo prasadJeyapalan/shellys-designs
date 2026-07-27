@@ -11,31 +11,32 @@ export default function Nav({ page, setPage, menuOpen, setMenuOpen }) {
   return (
     <header className="nav">
       <div className="nav-inner">
-        <nav className="nav-links">
-          {links.map((l) => (
-            <button
-              key={l.id}
-              className={`nav-link ${page === l.id ? "active" : ""}`}
-              onClick={() => setPage(l.id)}
-            >
-              {l.label}
-            </button>
-          ))}
-        </nav>
+  <div className="nav-actions">
+    <button className="nav-icon-btn" aria-label="Bag">
+      <ShoppingBag size={18} />
+    </button>
+    <button className="menu-toggle" aria-label="Menu" onClick={() => setMenuOpen((m) => !m)}>
+      {menuOpen ? <X size={22} /> : <Menu size={22} />}
+    </button>
+  </div>
 
-        <button className="brand" onClick={() => setPage("home")}>
-          <img src="/images/logo.png" alt="Shelly's Signature Designs" className="brand-logo" />
-        </button>
+  <button className="brand" onClick={() => setPage("home")}>
+    <img src="/images/logo.png" alt="Shelly's Signature Designs" className="brand-logo" />
+  </button>
 
-        <div className="nav-actions">
-          <button className="nav-icon-btn" aria-label="Bag">
-            <ShoppingBag size={18} />
-          </button>
-          <button className="menu-toggle" aria-label="Menu" onClick={() => setMenuOpen((m) => !m)}>
-            {menuOpen ? <X size={22} /> : <Menu size={22} />}
-          </button>
-        </div>
-      </div>
+  <nav className="nav-links">
+    {links.map((l) => (
+      <button
+        key={l.id}
+        className={`nav-link ${page === l.id ? "active" : ""}`}
+        onClick={() => setPage(l.id)}
+      >
+        {l.label}
+      </button>
+    ))}
+  </nav>
+</div>
+
       {menuOpen && (
         <div className="mobile-menu">
           {links.map((l) => (

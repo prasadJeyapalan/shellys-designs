@@ -18,30 +18,32 @@ export default function App() {
   const [cart, setCart] = useState([]); // [{ id, qty }]
   const [cartOpen, setCartOpen] = useState(false);
 
-  const addToCart = (id) => {
+const addToCart = (id, size = null) => {
     setCart((prev) => {
-      const existing = prev.find((line) => line.id === id);
+      const existing = prev.find((line) => line.id === id && line.size === size);
       if (existing) {
         return prev.map((line) =>
-          line.id === id ? { ...line, qty: line.qty + 1 } : line
+          line === existing ? { ...line, qty: line.qty + 1 } : line
         );
       }
-      return [...prev, { id, qty: 1 }];
+      return [...prev, { id, size, qty: 1 }];
     });
   };
 
-  const changeQty = (id, qty) => {
+const changeQty = (id, size, qty) => {
     if (qty < 1) {
-      removeFromCart(id);
+      removeFromCart(id, size);
       return;
     }
-    setCart((prev) => prev.map((line) => (line.id === id ? { ...line, qty } : line)));
+    setCart((prev) =>
+      prev.map((line) => (line.id === id && line.size === size ? { ...line, qty } : line))
+    );
   };
 
-  const removeFromCart = (id) => {
-    setCart((prev) => prev.filter((line) => line.id !== id));
+  const removeFromCart = (id, size) => {
+    setCart((prev) => prev.filter((line) => !(line.id === id && line.size === size)));
   };
-
+  
   const cartCount = cart.reduce((sum, line) => sum + line.qty, 0);
 
   return (

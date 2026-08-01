@@ -271,3 +271,11 @@
 .cash-form { display: flex; flex-direction: column; gap: 0.6rem; margin-top: 0.6rem; }
 .cash-form input { font-family: 'Poppins', sans-serif; font-size: 0.85rem; padding: 0.6rem 0.8rem; border: 1px solid rgba(32,26,29,0.2); border-radius: 10px; }
 .cash-confirmation { text-align: center; font-size: 0.85rem; color: var(--blush); font-weight: 600; margin-top: 0.6rem; }
+
+.size-picker { margin: 1rem 0; }
+.size-label { display: block; font-size: 0.78rem; font-weight: 600; color: rgba(32,26,29,0.6); margin-bottom: 0.5rem; }
+.size-options { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.size-btn { background: white; border: 1.5px solid rgba(32,26,29,0.2); width: 40px; height: 40px; border-radius: 8px; cursor: pointer; font-size: 0.8rem; font-weight: 600; color: var(--ink); }
+.size-btn.active { background: var(--ink); border-color: var(--ink); color: white; }
+.size-btn:hover:not(.active) { border-color: var(--blush); }
+.cart-item-size { font-weight: 400; color: rgba(32,26,29,0.55); font-size: 0.85rem; }

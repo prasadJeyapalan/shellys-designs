@@ -1,5 +1,5 @@
 export const PRODUCTS = [
-  { id: "airshow-tee", name: "How Low Can You Go Tee", cat: "shirts", price: 15, tone: "#1B2A4A", image: "/images/airshow-tee.jpg", note: "Navy tee, Blue Angels graphic, #2026AIRSHOW.", available: true },
+  { id: "airshow-tee", name: "How Low Can You Go Tee", cat: "shirts", price: 15, tone: "#1B2A4A", image: "/images/airshow-tee.jpg", note: "Navy tee, Blue Angels graphic, #2026AIRSHOW.", available: true, sizes: ["S", "M", "L", "XL", "2XL"] },
   { id: "hoodie-name", name: "Name-Script Hoodie", cat: "shirts", price: 46, tone: "#201A1D", note: "Your name in signature script across the chest.", available: false },
   { id: "tee-team", name: "Team Spirit Tee", cat: "shirts", price: 25, tone: "#C79A45", note: "Bulk-friendly, great for squads, schools, and events.", available: false },
   { id: "cap-classic", name: "Classic Dad Cap", cat: "hats", price: 24, tone: "#201A1D", note: "Embroidered or heat-pressed logo, adjustable strap.", available: false },

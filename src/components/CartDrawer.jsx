@@ -6,10 +6,10 @@ export default function CartDrawer({ cart, onClose, onChangeQty, onRemove }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const items = cart
+const items = cart
     .map((line) => {
       const product = PRODUCTS.find((p) => p.id === line.id);
-      return product ? { ...product, qty: line.qty } : null;
+      return product ? { ...product, qty: line.qty, size: line.size } : null;
     })
     .filter(Boolean);
 
@@ -23,7 +23,11 @@ export default function CartDrawer({ cart, onClose, onChangeQty, onRemove }) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          items: items.map((i) => ({ name: i.name, price: i.price, qty: i.qty })),
+          items: items.map((i) => ({
+  name: i.size ? `${i.name} (Size ${i.size})` : i.name,
+  price: i.price,
+  qty: i.qty,
+})),
         }),
       });
       const data = await res.json();
@@ -55,7 +59,11 @@ export default function CartDrawer({ cart, onClose, onChangeQty, onRemove }) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          items: items.map((i) => ({ name: i.name, price: i.price, qty: i.qty })),
+          items: items.map((i) => ({
+  name: i.size ? `${i.name} (Size ${i.size})` : i.name,
+  price: i.price,
+  qty: i.qty,
+})),
           total,
           name: cashName,
           phone: cashPhone,
@@ -101,10 +109,13 @@ export default function CartDrawer({ cart, onClose, onChangeQty, onRemove }) {
                   />
                   <div className="cart-item-info">
                     <div className="cart-item-row">
-                      <h4 className="font-display">{item.name}</h4>
+                      <h4 className="font-display">
+                        {item.name}
+                        {item.size && <span className="cart-item-size"> — Size {item.size}</span>}
+                      </h4>
                       <button
                         className="cart-remove"
-                        onClick={() => onRemove(item.id)}
+                        onClick={() => onRemove(item.id, item.size)}
                         aria-label="Remove"
                       >
                         <Trash2 size={14} />
@@ -112,11 +123,11 @@ export default function CartDrawer({ cart, onClose, onChangeQty, onRemove }) {
                     </div>
                     <p className="price">${item.price}</p>
                     <div className="qty-control">
-                      <button onClick={() => onChangeQty(item.id, item.qty - 1)} aria-label="Decrease">
+                      <button onClick={() => onChangeQty(item.id, item.size,item.qty - 1)} aria-label="Decrease">
                         <Minus size={12} />
                       </button>
                       <span>{item.qty}</span>
-                      <button onClick={() => onChangeQty(item.id, item.qty + 1)} aria-label="Increase">
+                      <button onClick={() => onChangeQty(item.id, item.size, item.qty + 1)} aria-label="Increase">
                         <Plus size={12} />
                       </button>
                     </div>
